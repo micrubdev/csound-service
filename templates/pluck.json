@@ -1,0 +1,10 @@
+{
+  "id": "pluck",
+  "name": "Plucked string",
+  "csd": "pluck.csd",
+  "instrNum": 1,
+  "fields": [
+    { "name": "freq", "pfield": 4, "type": "number", "default": 440, "min": 20, "max": 20000 },
+    { "name": "amp",  "pfield": 5, "type": "number", "default": 0.5, "min": 0, "max": 1 }
+  ]
+}

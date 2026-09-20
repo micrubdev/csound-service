@@ -1,0 +1,32 @@
+# Fly.io app config for the personal free-tier deployment.
+# Run `fly launch --no-deploy` once to create the app and adjust `app` below
+# to the name Fly assigns, then `fly deploy` to ship.
+
+app = "csound-service"        # change to your actual Fly app name
+primary_region = "iad"        # pick the region nearest you
+
+[build]
+
+[env]
+  PORT = "8080"
+  RENDER_TIMEOUT_MS = "30000"
+  WORKER_CONCURRENCY = "1"
+  MAX_TEXT_BYTES = "200000"
+  MAX_OUTPUT_BYTES = "52428800"
+  JOB_RETENTION_MS = "1800000"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true    # scales to zero when idle -> stays on free tier
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type = "requests"
+    hard_limit = 5
+    soft_limit = 3
+
+[[vm]]
+  size = "shared-cpu-1x"        # free-tier eligible size
+  memory = "256mb"

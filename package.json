@@ -1,0 +1,14 @@
+{
+  "name": "csound-service",
+  "version": "1.0.0",
+  "description": "Renders user-submitted Csound orchestra/score text to audio, deployed on Fly.io",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "nanoid": "^5.0.7"
+  }
+}
