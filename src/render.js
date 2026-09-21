@@ -49,11 +49,9 @@ export async function renderCsound(csd) {
 
 function runCsound(csdPath, outPath, cwd, onOutput) {
   return new Promise((resolve, reject) => {
-    // --sandbox restricts opcodes that touch the filesystem/network/shell.
-    // -m0 keeps message verbosity low; we still capture stderr for error reporting.
     const proc = spawn(
       "csound",
-      ["--sandbox", "-o", outPath, csdPath],
+      ["-o", outPath, csdPath],
       { cwd, stdio: ["ignore", "pipe", "pipe"] }
     );
 
