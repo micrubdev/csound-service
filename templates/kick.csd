@@ -20,7 +20,7 @@ instr 1
   aenv   expseg 1, 0.01, 1, p3 - 0.01, 0.001
   abody  = abody * aenv
 
-  aclick oscil iamp * 0.6, 1800
+  aclick oscil iamp * 0.25, 1800
   aclick butterhp aclick, 800
   aclickenv expseg 1, 0.003, 0.001, 0.05, 0.0001
   aclick = aclick * aclickenv
