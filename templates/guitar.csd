@@ -19,17 +19,21 @@ instr 1
   ifreq  = p4
   iamp   = p5
 
-  asig   pluck iamp, ifreq, ifreq, 0, 1
+  ; Bandlimited sawtooth (not Karplus-Strong, so it sustains and drives
+  ; distortion like a real electric guitar/synth-lead, instead of decaying
+  ; like the pluck instrument) into hard overdrive and a resonant filter
+  ; with pitch vibrato.
+  kvibhz = 6
+  kvib   oscil 3, kvibhz              ; vibrato depth in Hz
+  asaw   vco2 iamp, ifreq + kvib, 0
 
-  adrive distort1 asig, 6, 0.6, 0, 0
-  aenv   linen adrive, 0.01, p3, 0.15
+  adrive distort1 asaw, 12, 3, 0, 0
+  aenv   linen adrive, 0.02, p3, 0.2
 
-  kvibhz = 5.5
-  kvib   oscil 0.006, kvibhz          ; subtle pitch vibrato via resonant sweep
-  afilt  reson aenv, ifreq * (2.5 + kvib), ifreq * 1.5
+  afilt  reson aenv, ifreq * 3, ifreq * 1.2
   afilt  balance afilt, aenv
 
-  aout   = afilt * 0.32
+  aout   = afilt * 0.3
   aout   limit aout, -0.6, 0.6
   outs   aout, aout
   ga_dlL += aout
