@@ -1,0 +1,11 @@
+{
+  "id": "guitar",
+  "name": "Overdriven lead guitar",
+  "csd": "guitar.csd",
+  "instrNum": 1,
+  "effectsInstr": 99,
+  "fields": [
+    { "name": "freq", "pfield": 4, "type": "number", "default": 440, "min": 40, "max": 2000 },
+    { "name": "amp",  "pfield": 5, "type": "number", "default": 0.6, "min": 0, "max": 1 }
+  ]
+}
