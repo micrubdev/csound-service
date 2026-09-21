@@ -1,0 +1,10 @@
+{
+  "id": "kick",
+  "name": "Techno kick",
+  "csd": "kick.csd",
+  "instrNum": 1,
+  "fields": [
+    { "name": "freq", "pfield": 4, "type": "number", "default": 55, "min": 20, "max": 200 },
+    { "name": "amp",  "pfield": 5, "type": "number", "default": 0.9, "min": 0, "max": 1 }
+  ]
+}
