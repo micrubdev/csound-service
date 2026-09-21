@@ -6,6 +6,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = process.env.TEMPLATES_DIR || path.join(__dirname, "..", "templates");
 const MAX_EVENTS = Number(process.env.MAX_EVENTS_PER_JOB || 200);
 const SCORE_MARKER = "; TEMPLATE_EVENTS";
+const EFFECTS_TAIL_MARKER = "; TEMPLATE_EFFECTS_TAIL";
+const EFFECTS_TAIL_SECONDS = 3; // let delay/reverb tails ring out past the last note
 
 /**
  * Loads every templates/<id>.json manifest + its paired .csd at startup.
@@ -78,7 +80,16 @@ export function buildCsdForJob(templateId, events) {
   const fieldsByName = new Map(manifest.fields.map((f) => [f.name, f]));
 
   const lines = events.map((event, i) => buildScoreLine(manifest, fieldsByName, event, i));
-  return csd.replace(SCORE_MARKER, lines.join("\n"));
+
+  let result = csd.replace(SCORE_MARKER, lines.join("\n"));
+  if (result.includes(EFFECTS_TAIL_MARKER)) {
+    const maxEnd = events.reduce((max, e) => Math.max(max, (e.start || 0) + (e.dur || 0)), 0);
+    const tailLine = Number.isInteger(manifest.effectsInstr)
+      ? `i${manifest.effectsInstr} 0 ${(maxEnd + EFFECTS_TAIL_SECONDS).toFixed(3)}`
+      : "";
+    result = result.replace(EFFECTS_TAIL_MARKER, tailLine);
+  }
+  return result;
 }
 
 function buildScoreLine(manifest, fieldsByName, event, index) {
