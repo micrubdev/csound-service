@@ -15,7 +15,11 @@ ga_dlR init 0
 instr 1
   ifreq = p4
   iamp  = p5
-  asig  pluck iamp, ifreq, ifreq, 0, 1
+  ; imeth 6 (weighted average) gives a softer excitation than the default
+  ; impulse (imeth 0), taming the bright click on the attack.
+  asig  pluck iamp, ifreq, ifreq, 0, 6
+  acut  = ifreq * 6
+  asig  tone asig, acut
   aenv  linen asig, 0.01, p3, 0.2
   outs  aenv, aenv
   ga_dlL += aenv
