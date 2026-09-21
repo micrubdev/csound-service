@@ -17,6 +17,8 @@ instr 1
   iamp  = p5
   asig  oscil iamp, ifreq
   aenv  linen asig, 0.5, p3, 0.5
+  aenv  = aenv * 0.6   ; headroom for overlapping/stacked sustained notes
+  aenv  clip aenv, 0, 0.95
   outs  aenv, aenv
   ga_dlL += aenv
   ga_dlR += aenv
@@ -38,7 +40,11 @@ instr 99
   ga_dlL  = 0
   ga_dlR  = 0
 
-  outs    atapL * 0.5, atapR * 0.5
+  aoutL   = atapL * 0.5
+  aoutR   = atapR * 0.5
+  aoutL   clip aoutL, 0, 0.95
+  aoutR   clip aoutR, 0, 0.95
+  outs    aoutL, aoutR
 endin
 </CsInstruments>
 <CsScore>
