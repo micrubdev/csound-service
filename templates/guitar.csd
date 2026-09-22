@@ -27,14 +27,14 @@ instr 1
   kvib   oscil 3, kvibhz              ; vibrato depth in Hz
   asaw   vco2 iamp, ifreq + kvib, 0
 
-  adrive distort1 asaw, 12, 3, 0, 0
+  adrive distort1 asaw, 4, 1.3, 0, 0
   aenv   linen adrive, 0.02, p3, 0.2
 
   afilt  reson aenv, ifreq * 3, ifreq * 1.2
   afilt  balance afilt, aenv
 
-  aout   = afilt * 0.3
-  aout   limit aout, -0.6, 0.6
+  aout   = afilt * 0.055
+  aout   limit aout, -0.4, 0.4
   outs   aout, aout
   ga_dlL += aout
   ga_dlR += aout
