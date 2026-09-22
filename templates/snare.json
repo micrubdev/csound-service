@@ -1,0 +1,10 @@
+{
+  "id": "snare",
+  "name": "Snare",
+  "csd": "snare.csd",
+  "instrNum": 1,
+  "fields": [
+    { "name": "freq", "pfield": 4, "type": "number", "default": 180, "min": 60, "max": 400 },
+    { "name": "amp",  "pfield": 5, "type": "number", "default": 0.8, "min": 0, "max": 1 }
+  ]
+}
